@@ -1,0 +1,44 @@
+{% extends 'layouts/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Slider Section Start -->
+    <div class="section">
+
+    <!-- Slider Section Start -->
+    <div class="single-slider" style="background-image: url({% static 'images/slider/slider-bg.jpg' %});">
+        <div class="container">
+
+            <!-- Slider Section Start -->
+            <div class="slider-content">
+                <h5 class="sub-title" data-aos="fade-up" data-aos-delay="100"> Car Damage Detecting Website </h5>
+            </div>
+            <!-- Slider Section End -->
+            <div class="mt-4"></div>
+
+
+            <!-- empty cart Start -->
+            <div class="empty-cart text-center mt-3">
+                <h2 class="empty-cart-title">Result Page</h2>
+                <h3>Car Check :</h3>
+                {{ g1_pic }}
+                <h3>Damage Check :</h3>
+                {{ g2_pic }}
+                <h3>Location Check :</h3>
+                {{ loc }}
+                <h4>Severity Check</h4>
+                {{ sev }}
+                <h4>Additional Services :</h4>
+                {{ ns|linebreaks }}
+            </div>
+        </div>
+        <!-- Slider Section End -->
+
+
+    </div>
+    <!-- Slider Section End -->
+
+{% endblock %}
+
+

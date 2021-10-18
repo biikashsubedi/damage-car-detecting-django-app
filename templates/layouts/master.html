@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    {% include 'layouts/header.html' %}
+</head>
+
+<body>
+
+<div class="main-wrapper">
+
+    <!-- Header Section Start -->
+    <div class="section header-section">
+
+        {% include 'layouts/headerTop.html' %}
+
+        {% include 'layouts/navheader.html' %}
+
+    </div>
+    <!-- Header Section End -->
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    {% include 'layouts/footer.html' %}
+
+    <!--Back To Start-->
+    <a href="#" class="back-to-top">
+        <i class="icofont-simple-up"></i>
+    </a>
+    <!--Back To End-->
+
+</div>
+
+{% include 'layouts/script.html' %}
+{% include 'layouts/message.html' %}
+
+{% block script %}
+
+{% endblock %}
+
+</body>
+
+</html>

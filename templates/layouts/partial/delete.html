@@ -1,0 +1,21 @@
+{% extends 'layouts/master.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Delete</h2>
+        </div>
+        <div class="card-body">
+            <p class="text-center"><b>Are you sure you want to delete "{{ object }}"</b></p>
+
+            <form method="POST" class="text-center">
+                {% csrf_token %}
+                <input type="button" class="btn btn-success" value="Go Back" onClick="javascript:history.go(-1);">
+                <input class="btn btn-danger" type="submit" value="Confirm">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

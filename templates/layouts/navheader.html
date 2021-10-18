@@ -1,0 +1,31 @@
+{% load static %}
+
+
+<div class="header-main">
+    <div class="container">
+
+        <!-- Header Main Start -->
+        <div class="header-main-wrapper">
+
+            <!-- Header Logo Start -->
+            <div class="header-logo">
+                <a href="{% url 'carDamage:home' %}"><img src="{% static 'images/logo-img.png' %}" alt="Logo"></a>
+            </div>
+            <!-- Header Logo End -->
+
+            <!-- Header Menu Start -->
+            <div class="primary-menu d-none d-lg-block">
+                <ul class="nav-menu">
+                    <li><a href="{% url 'carDamage:home' %}">Home</a></li>
+                    <li><a href="{% url 'carDamage:upload' %}">Check Damage Car</a></li>
+                </ul>
+
+            </div>
+            <!-- Header Menu End -->
+
+
+        </div>
+        <!-- Header Main End -->
+
+    </div>
+</div>

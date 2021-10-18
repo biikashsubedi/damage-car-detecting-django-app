@@ -1,0 +1,133 @@
+{% extends 'layouts/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Slider Section Start -->
+    <div class="section">
+
+    <!-- Slider Section Start -->
+    <div class="single-slider" style="background-image: url({% static 'images/slider/slider-bg.jpg' %});">
+        <div class="container">
+
+            <!-- Slider Section Start -->
+            <div class="slider-content">
+                <h5 class="sub-title" data-aos="fade-up" data-aos-delay="100"> Car Damage Detecting Website </h5>
+            </div>
+            <!-- Slider Section End -->
+            <div class="mt-4"></div>
+
+
+            <!-- empty cart Start -->
+            <div class="empty-cart text-center mt-3">
+                <h2 class="empty-cart-title">Please choose your photo</h2>
+
+                <form action="" method="post" enctype="multipart/form-data" class="mt-3">
+                    {% csrf_token %}
+
+                    {% for field in form.visible_fields|slice:6 %}
+                        <div class="form-body">
+                            <div class="form-group row">
+                                <div class="col-3"></div>
+                                <div class="col-sm-6">
+                                    <input type="{{ field.field.widget.input_type }}" id="firstname"
+                                           name="{{ field.html_name }}"
+                                           value="{{ field.value|default_if_none:'' }}" class="form-control"
+                                           placeholder="{{ field.label }}" required>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Submit" class="btn btn-primary px-4" id="image_process">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Slider Section End -->
+
+        {% if 'img_path' in request.session %}
+            <div class="empty-cart text-center mt-5">
+                <h2 class="empty-cart-title">Your Last Uploaded Photo</h2>
+                <img src="http://{{ request.get_host }}{{ request.session.img_path }}" alt="car image"
+                     class="img-fluid col-4" style="max-height: 300px">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        {#                        <a href="{% url 'carDamage:engine' %}" class="btn btn-primary px-4">Proceed for AI Check</a>#}
+                        {#                        <input type="submit" value="Proceed for AI Check" class="btn btn-primary px-4" id="image_process">#}
+                        <button class="btn btn-primary px-4 img-proc" id="image_process">Proceed for AI Check</button>
+
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+    </div>
+    <!-- Slider Section End -->
+
+
+    <!-- Cart Section Start -->
+    <div class="section section-padding result-sec d-none">
+        <div class="container col-8">
+            <div class="empty-cart text-center">
+                <div id="car_ex"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Section End -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".img-proc").on('click', function () {
+                $('.result-sec').removeClass('d-none');
+                $('#car_ex').html('<h2 class="empty-cart-title img-proc-title">Processing the Image of your Car</h2>' + '<br/>' +
+                    '<img src="{% static 'images/car_run2.gif' %}" width ="300" height="130">')
+
+                $.ajax({
+                    url: "/process/",
+                    type: 'get',
+                    success: function (results) {
+                        console.log(results)
+                        $('#car_ex').html(results);
+
+                        var div = document.getElementById('car_ex');
+
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + "<span style='color: red'>" + "Result Of Your Image:".fontsize(6);
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + '______________________________________________________________________';
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + "<span style='color:blue; font-weight: bold;'>" + "Car Check: ".fontsize(4);
+                        div.innerHTML = div.innerHTML + results.g1_pic;
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + '______________________________________________________________________';
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + "<span style='color:blue; font-weight: bold;'>" + "Damage Check: ".fontsize(4);
+                        div.innerHTML = div.innerHTML + results.g2_pic;
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + '______________________________________________________________________';
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + "<span style='color:blue; font-weight: bold;'>" + "Location: ".fontsize(4);
+                        div.innerHTML = div.innerHTML + results.loc;
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + '______________________________________________________________________';
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + "<span style='color:blue; font-weight: bold;'>" + "Severity: ".fontsize(4);
+                        div.innerHTML = div.innerHTML + results.sev;
+                        div.innerHTML = div.innerHTML + '<br/>';
+                        div.innerHTML = div.innerHTML + '______________________________________________________________________';
+
+
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
